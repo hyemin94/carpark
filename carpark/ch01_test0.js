@@ -3,7 +3,7 @@
 /*eslint no-undef: "error"*/
 /*eslint-env node*/
 
-console.log('안녕하세요');
+console.log('test');
 console.log('안녕하세요');
 console.log('안녕하세요');
 
@@ -19,5 +19,3 @@ console.log('1부터 1000까지 더한 결과물 : %d', result);
 
 var Person = {name:"소녀시대", age : 20};
 console.dir(Person);
-
-if(proces)
