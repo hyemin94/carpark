@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>index</title>
+    <script src=http://code.jquery.com/jquery-1.11.1.js> </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
     <script>
         function addressKindChange(e) {
@@ -57,9 +59,10 @@
         }
     </script>
 <body>
-<h1>주차장 정보 안내 서비스</h1>
+
+    <h1>주차장 정보 안내 서비스</h1>
     <h3>가까운 주차장 정보를 안내해드립니다.</h3>
-    <form method="get" action="/views/success" name="f">
+    <form method="post" action="/views/success" name="f">
         <div class="country">
             <label for="addressKindU">도/특별시 선택</label>
             <select class="form-control" id="addressKindU" name="addressKindU" onchange="addressKindChange(this)">
@@ -85,12 +88,30 @@
         </div>
         <div class="city">
         <label for="addressKindD">주소 소분류</label>
-        <select class="form-control" id="addressKindD" name="addressKindD">
+        <select class="form-control" id="addressKindD" name="addressKindD" >
         <option>선택해주세요.</option>
         </select>
         </div>
-        <input type="submit" id="addressid" name="addressname">
+        <div class="add" id="search" onclick="click()">검색하기</div>
+        <input type="submit" value="검색하기" name="addressname">
     </form>
+    <script>
+        function click(){
+            console.log($("#addressKindU").val.prop("selected", ture));
+            $("#addressKindU").val.prop("selected", ture);
+        }
+//        $.ajax({
+//            url:"localhost:3000/users",
+//            type:"get",
+//            dataType:"json",
+//            success:function(response){
+//                console.log(response);
+//            },
+//            error:function(request, status, error){
+//
+//            }
+//        });
+    </script>
     </body>
 </html>
 
