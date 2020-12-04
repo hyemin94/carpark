@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/users', (req, res) => {
-  connection.query('select * from parking', (error, rows) => {
+  connection.query("select CARPARK_NM, LOCATION_ADDRESS, CARPARK_OPDAYS from parking where LOCATION_ADDRESS like '%서울특별시%' and LOCATION_ADDRESS like '%강남구%'", (error, rows) => {
     if (error) throw error;
     console.log('User info is: ', rows);
     res.json(rows);

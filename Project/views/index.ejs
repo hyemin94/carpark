@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>index</title>
+</head>
     <script src=http://code.jquery.com/jquery-1.11.1.js> </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-</head>
     <script>
         function addressKindChange(e) {
             var seoul = ["강남구", "종로구", "중구", "용산구", "성동구", "광진구","동대문구","중랑구","성북구","강북구","도봉구","노원구","은평구","서대문구","마포구","양천구","강서구","구로구","금천구","영등포구","동작구","관악구","서초구","강남구","송파구","강동구"];
@@ -47,7 +47,6 @@
             else if(e.value == "gyeongsangnam") var d = gyeongsangnam;
             else if(e.value == "jeju") var d = jeju;
 
-
             target.options.length = 0;
 
             for (x in d) {
@@ -57,61 +56,131 @@
             target.appendChild(opt);
             }
         }
+
+        function btnclick(){
+            // 특별시 파라미터
+           var country =$("select[id=addressKindU]").val();
+            // 시군구 파라미터
+            var city = $("select[id=addressKindD]").val();
+
+            alert(country + city);
+        }
+        /*
+        $('#ajaxbtn').ajaxbtn(function(){
+            $.ajax({
+                url:'http://127.0.0.1.3000',
+                async : true,
+
+                type:post,
+                data: {
+                   select : $("#addressKindU").val(),
+                   select : $("#addressKindD").val(),
+
+                },
+                dataType:'json',
+                success:function(data){
+                    alert("성공");
+                },
+                error: function(err){
+                    alert("실패"+err);
+                }
+            });
+        });
+        */
+
+        /*
+        $(document).ready(function(){
+
+            $("#ajaxbtn").click(function(){
+
+                var addressKU = [];
+                $('input[name=addressKindU]:selected').each(function(i){
+                    addressKU.push($(this).val());
+                });
+
+                var addressKD = [];
+                $('input[name=addressKindD]:selected').each(function(i){
+                    addressKD.push($(this).val());
+                });
+
+                var objParams = {addressKU, addressKD};
+
+                // ajax 호출
+                $.ajax({
+                    url : "/views/index",
+                    dataType : "json",
+                    contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+                    type : "post",
+                    data : objParams,
+                    success : function(retVal){
+                        if(vetVal.code =="OK"){
+                            alert(retVal.message);
+                        } else {
+                            alert(retVal.message);
+                        }
+                    },
+                    error : function(erquest, status, error){
+                        console.log("ajax error");
+                    }
+                });
+
+
+            });
+        });
+        */
+
     </script>
 <body>
-
     <h1>주차장 정보 안내 서비스</h1>
     <h3>가까운 주차장 정보를 안내해드립니다.</h3>
-    <form method="post" action="/views/success" name="f">
-        <div class="country">
-            <label for="addressKindU">도/특별시 선택</label>
-            <select class="form-control" id="addressKindU" name="addressKindU" onchange="addressKindChange(this)">
-                <option>주소를 선택하세요</option>
-                <option value="seoul">서울특별시</option>
-                <option value="busan">부산광역시</option>
-                <option value="daegu">대구광역시</option>
-                <option value="Incheon">인천광역시</option>
-                <option value="guwangju">광주광역시</option>
-                <option value="daejeon">대전광역시</option>
-                <option value="sejong">세종특별자치시</option>
-                <option value="Ulsan">울산광역시</option>
-                <option value="gyeonggi">경기도</option>
-                <option value="gangwon">강원도</option>
-                <option value="chungcheongbuk">충청북도</option>
-                <option value="chungchenongnam">충청남도</option>
-                <option value="jeollabuk">전라북도</option>
-                <option value="jeollanam">전라남도</option>
-                <option value="gyeongsangbuk">경상북도</option>
-                <option value="gyeongsangnam">경상남도</option>
-                <option value="jeju">제주특별자치도</option>
-            </select>
-        </div>
-        <div class="city">
-        <label for="addressKindD">주소 소분류</label>
-        <select class="form-control" id="addressKindD" name="addressKindD" >
-        <option>선택해주세요.</option>
+    <form method="post" action="/views/index" name="f">
+        <select class="form-control" id="addressKindU" name="addressKindU" onchange="addressKindChange(this)">
+            <option>주소를 선택하세요</option>
+            <option value="seoul">서울특별시</option>
+            <option value="busan">부산광역시</option>
+            <option value="daegu">대구광역시</option>
+            <option value="Incheon">인천광역시</option>
+            <option value="guwangju">광주광역시</option>
+            <option value="daejeon">대전광역시</option>
+            <option value="sejong">세종특별자치시</option>
+            <option value="Ulsan">울산광역시</option>
+            <option value="gyeonggi">경기도</option>
+            <option value="gangwon">강원도</option>
+            <option value="chungcheongbuk">충청북도</option>
+            <option value="chungchenongnam">충청남도</option>
+            <option value="jeollabuk">전라북도</option>
+            <option value="jeollanam">전라남도</option>
+            <option value="gyeongsangbuk">경상북도</option>
+            <option value="gyeongsangnam">경상남도</option>
+            <option value="jeju">제주특별자치도</option>
         </select>
+        <select class="form-control" id="addressKindD" name="addressKindD">
+            <option>주소를 선택하세요</option>
+        </select>
+        <button type="button" id="ajaxbtn" name="ajaxbtn" onClick="btnclick()">검색하기</button>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                <th>주차장명</th>
+                <th>주차장주소</th>
+                </tr>
+                </thead>
+            </table>
         </div>
-        <div class="add" id="search" onclick="click()">검색하기</div>
-        <input type="submit" value="검색하기" name="addressname">
     </form>
-    <script>
-        function click(){
-            console.log($("#addressKindU").val.prop("selected", ture));
-            $("#addressKindU").val.prop("selected", ture);
-        }
-//        $.ajax({
-//            url:"localhost:3000/users",
-//            type:"get",
-//            dataType:"json",
-//            success:function(response){
-//                console.log(response);
-//            },
-//            error:function(request, status, error){
-//
-//            }
-//        });
-    </script>
-    </body>
-</html>
 
+    <div id="map" style= "margin-left:10px; margin-top:10px; width:1000px; height:400px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6253ae90b6716de18ad9f18dabc245e1"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	</script>
+
+</body>
+</html>
